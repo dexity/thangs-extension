@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Thangs Search</title>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+ 
+<script>
+(function() {
+  var url = "https://thangs.com/api/models/v2/search-by-text?searchTerm=tree&scope=thangs";
+  $.getJSON(url)
+    .done(function( data ) {
+      var items = [];  
+      $.each( data.results, function( i, item ) {
+          items.push("<li>" + item.modelTitle + "</li>");
+        // console.log(item.attributionUrl);
+        // console.log(item.modelId);
+        // console.log(item.modelTitle);
+      });
+      $( "<ul/>", {
+            html: items.join( "" )
+        }).appendTo( "body" );      
+    });
+})();
+</script>
+ 
+</body>
+</html>
