@@ -6,49 +6,36 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-    <table id='results' border="1">
-       <tr>
-          <th>Order</th>
-          <th>modelId</th>
-          <th>attributionUrl</th>
-          <th>modelTitle</th>
-          <th>thumbnailUrl</th>
-      </tr>
-    </table>
-<script>
-(function() {
+  <table border="1" id="result"/>
+  <script>
+    var url = "https://thangs.com/api/models/v2/search-by-text?searchTerm=tree&scope=thangs&pageSize=5";
+    var table = $("#result");
+    var tr = $("<tr/>").appendTo(table);
+    var headers = ["Order", "modelId"];
+    for (var i=0; i<headers.length; i++){
+      tr.append("<th>" + headers[i] + "</th>");
+    }
+    $.getJSON(url)
+      .done(function( data ) {
+        $.each( data.results, function( i, item ) {
+          var tr1 = $("<tr/>").appendTo(table);
+          var row = [i, item.modelId];
+          for (var j=0; j<row.length; j++){
+            tr1.append("<td>" + row[j] + "</td>");
+          }
+        });
+      })
+  </script>
 
-  var url = "https://thangs.com/api/models/v2/search-by-text?searchTerm=tree&scope=thangs";
-  var tbody = $('#results')  
-  $.getJSON(url)
-    .done(function( data ) {
-      // var items = [];  
-      // $.each( data.results, function( i, item ) {
-      //     items.push("<li>" + item.modelTitle + "</li>");
-      //   // console.log(item.attributionUrl);
-      //   // console.log(item.modelId);
-      //   // console.log(item.modelTitle);
-      // });
-      // $( "<ul/>", {
-      //       html: items.join( "" )
-      //   }).appendTo( "body" );
-
-      // TODO: Use data.results to populate rows
-      var rows = [
-          [1, '5ec03923-0066-4aea-89b1-2e4ea275c345', 'https://thangs.com/designer/Rocket-Puff/3d-model/tree-pickstl-8352', 
-          'tree pick.stl', 'https://thangs-thumbs-dot-gcp-and-physna.uc.r.appspot.com/convert/54ae5000-d7f6-498e-a786-86d8d41c78c4.stl'],
-      ];
-
-
-      var tr = $('<tr/>').appendTo(tbody)
-      // Iterate over every element of data.
-      var col = rows[0]  // index=0
-      for (var j = 0; j < 5; j++) {
-          tr.append('<td>' + col[j] + '</td>');
-      }
-    });
-})();
-</script>
- 
+  <!-- <table border="1">
+    <tr>
+      <th>Order</th>
+      <th>modelId</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>5ec03923-0066-4aea-89b1-2e4ea275c345</td>
+    </tr>
+  </table> -->
 </body>
 </html>
