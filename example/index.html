@@ -7,11 +7,14 @@
 </head>
 <body>
   <table border="1" id="result"/>
+  <!-- <a href="https://thangs.com/designer/Rocket-Puff/3d-model/tree-pickstl-8352">
+    <img width="200" src="https://thangs-thumbs-dot-gcp-and-physna.uc.r.appspot.com/convert/54ae5000-d7f6-498e-a786-86d8d41c78c4.stl">
+  </a> -->
   <script>
-    var url = "https://thangs.com/api/models/v2/search-by-text?searchTerm=tree&scope=thangs&pageSize=5";
+    var url = "https://thangs.com/api/models/v2/search-by-text?searchTerm=rocket&scope=thangs";
     var table = $("#result");
     var tr = $("<tr/>").appendTo(table);
-    var headers = ["Order", "modelId"];
+    var headers = ["Model"];
     for (var i=0; i<headers.length; i++){
       tr.append("<th>" + headers[i] + "</th>");
     }
@@ -19,10 +22,9 @@
       .done(function( data ) {
         $.each( data.results, function( i, item ) {
           var tr1 = $("<tr/>").appendTo(table);
-          var row = [i, item.modelId];
-          for (var j=0; j<row.length; j++){
-            tr1.append("<td>" + row[j] + "</td>");
-          }
+          var img = '<img width="200" src="' + item.thumbnailUrl + '">';
+          var model = '<a href="' + item.attributionUrl + '">' + img + '</a>';
+          tr1.append('<td>' + model + '</td>');
         });
       })
   </script>
